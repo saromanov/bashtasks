@@ -1,3 +1,4 @@
+#loading of tasks
 tasks:
-  - name: whoami
+  - title: whoami
     cmd: whoami

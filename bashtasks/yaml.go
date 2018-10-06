@@ -2,6 +2,7 @@ package bashtasks
 
 import (
 	"fmt"
+	"io/ioutil"
 
 	"gopkg.in/yaml.v2"
 )
@@ -20,11 +21,14 @@ type Task struct {
 // LoadYAML provides loading of the yaml config
 func LoadYAML(path string) error {
 	cfg := Config{}
-	d, err := yaml.Marshal(&cfg)
+	fileConfig, err := ioutil.ReadFile(path)
 	if err != nil {
 		return err
 	}
-	fmt.Println(string(d))
+	err = yaml.Unmarshal(fileConfig, &cfg)
+	if err != nil {
+		return err
+	}
 	fmt.Println(cfg)
 	return nil
 }
