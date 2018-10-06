@@ -1,5 +1,7 @@
 package main
 
-func main() {
+import "github.com/saromanov/bashtasks/bashtasks"
 
+func main() {
+	bashtasks.LoadYAML("config.yaml")
 }

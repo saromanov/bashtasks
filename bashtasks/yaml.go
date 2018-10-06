@@ -1,4 +1,4 @@
-package main
+package bashtasks
 
 import (
 	"fmt"
@@ -18,7 +18,8 @@ type Task struct {
 	Cmd   string `yaml:"cmd"`
 }
 
-func loadYAML(path string) {
+// LoadYAML provides loading of the yaml config
+func LoadYAML(path string) {
 	cfg := &Config{}
 	d, err := yaml.Marshal(&cfg)
 	if err != nil {
