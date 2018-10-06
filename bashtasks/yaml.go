@@ -2,7 +2,6 @@ package bashtasks
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/go-yaml/yaml"
 )
@@ -19,11 +18,12 @@ type Task struct {
 }
 
 // LoadYAML provides loading of the yaml config
-func LoadYAML(path string) {
+func LoadYAML(path string) error {
 	cfg := &Config{}
-	d, err := yaml.Marshal(&cfg)
+	_, err := yaml.Marshal(&cfg)
 	if err != nil {
-		log.Fatalf("error: %v", err)
+		return err
 	}
-	fmt.Println(d)
+	fmt.Println(cfg)
+	return nil
 }
