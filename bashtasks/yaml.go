@@ -3,7 +3,7 @@ package bashtasks
 import (
 	"fmt"
 
-	"github.com/go-yaml/yaml"
+	"gopkg.in/yaml.v2"
 )
 
 // Config defines struct for config
@@ -19,11 +19,12 @@ type Task struct {
 
 // LoadYAML provides loading of the yaml config
 func LoadYAML(path string) error {
-	cfg := &Config{}
-	_, err := yaml.Marshal(&cfg)
+	cfg := Config{}
+	d, err := yaml.Marshal(&cfg)
 	if err != nil {
 		return err
 	}
+	fmt.Println(string(d))
 	fmt.Println(cfg)
 	return nil
 }
