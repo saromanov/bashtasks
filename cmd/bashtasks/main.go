@@ -12,5 +12,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	bashtasks.ExecuteRowTasks(cfg.Tasks)
+	if len(cfg.Tasks) > 0 {
+		bashtasks.ExecuteRowTasks(cfg.Tasks)
+	}
 }
