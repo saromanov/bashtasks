@@ -5,6 +5,17 @@ import (
 	"os/exec"
 )
 
+// ExecuteRowTasks provides executing of the
+// commands step by step
+func ExecuteRowTasks(tasks []Task) {
+	if len(tasks) == 0 {
+		return
+	}
+	for _, t := range tasks {
+		executeCommand(t.Cmd)
+	}
+}
+
 // executeCommand provides execution of the command
 func executeCommand(cmd string) ([]byte, error) {
 
