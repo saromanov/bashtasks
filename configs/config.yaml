@@ -2,3 +2,6 @@
 tasks:
   - title: whoami
     cmd: whoami
+  
+  - title: network
+    cmd: ifconfig
