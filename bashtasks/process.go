@@ -5,19 +5,29 @@ import (
 	"os/exec"
 )
 
+// RowTasks defines response
+// for execute row tasks
+type RowTasks struct {
+	NumberOfTasks int
+	CompleteTasks int
+}
+
 // ExecuteRowTasks provides executing of the
 // commands step by step
-func ExecuteRowTasks(tasks []Task) {
+func ExecuteRowTasks(tasks []Task) *RowTasks {
 	if len(tasks) == 0 {
-		return
+		return nil
 	}
+	rt := &RowTasks{NumberOfTasks: len(tasks)}
 	for _, t := range tasks {
 		out, err := executeCommand(t.Cmd)
 		if err != nil {
 			continue
 		}
+		rt.CompleteTasks++
 		fmt.Println(string(out))
 	}
+	return rt
 }
 
 // executeCommand provides execution of the command
