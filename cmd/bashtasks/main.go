@@ -1,7 +1,17 @@
 package main
 
-import "github.com/saromanov/bashtasks/bashtasks"
+import (
+	"fmt"
+	"log"
+
+	"github.com/saromanov/bashtasks/bashtasks"
+)
 
 func main() {
-	bashtasks.LoadYAML("../../configs/config.yaml")
+	cfg, err := bashtasks.LoadYAML("../../configs/config.yaml")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(cfg)
 }
