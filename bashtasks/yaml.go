@@ -9,6 +9,7 @@ import (
 // Config defines struct for config
 type Config struct {
 	Tasks []Task `yaml:"tasks"`
+	ParallelTasks []Task `yaml:"parallel_tasks"`
 }
 
 // Task is definition for task
