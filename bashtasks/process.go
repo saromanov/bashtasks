@@ -12,7 +12,11 @@ func ExecuteRowTasks(tasks []Task) {
 		return
 	}
 	for _, t := range tasks {
-		executeCommand(t.Cmd)
+		out, err := executeCommand(t.Cmd)
+		if err != nil {
+			continue
+		}
+		fmt.Println(string(out))
 	}
 }
 
