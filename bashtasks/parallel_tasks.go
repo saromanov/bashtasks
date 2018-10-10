@@ -14,7 +14,10 @@ func ExecuteParallelTasks(tasks []Task) error {
 	var wg sync.WaitGroup
 	wg.Add(len(tasks))
 	for _, t := range tasks {
-		go executeCommand(t.Cmd)
+		go func() {
+			executeCommand(t.Cmd)
+			wg.Done()
+		}()
 	}
 	wg.Wait()
 	return nil
