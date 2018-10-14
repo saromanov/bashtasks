@@ -5,11 +5,17 @@ import (
 	"os/exec"
 )
 
-// RowTasks defines response
+// BashTasks defines response
 // for execute row tasks
-type RowTasks struct {
+type BashTasks struct {
 	NumberOfTasks int
 	CompleteTasks int
+	Config        *Config
+}
+
+// New provides init of the bash tasks
+func New(cfg *Config) *BashTasks {
+	return &BashTasks{Config: cfg}
 }
 
 // ExecuteRowTasks provides executing of the
