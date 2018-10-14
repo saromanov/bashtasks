@@ -20,20 +20,20 @@ func New(cfg *Config) *BashTasks {
 
 // ExecuteRowTasks provides executing of the
 // commands step by step
-func ExecuteRowTasks(tasks []Task) *RowTasks {
+func (b *BashTasks) ExecuteRowTasks(tasks []Task) {
 	if len(tasks) == 0 {
-		return nil
+		return
 	}
-	rt := &RowTasks{NumberOfTasks: len(tasks)}
+	b.NumberOfTasks = len(tasks)
 	for _, t := range tasks {
 		out, err := executeCommand(t.Cmd)
 		if err != nil {
 			continue
 		}
-		rt.CompleteTasks++
+		b.CompleteTasks++
 		fmt.Println(string(out))
 	}
-	return rt
+	return
 }
 
 // executeCommand provides execution of the command
