@@ -3,6 +3,8 @@ package bashtasks
 import (
 	"fmt"
 	"os/exec"
+
+	"github.com/fatih/color"
 )
 
 // BashTasks defines response
@@ -35,6 +37,12 @@ func (b *BashTasks) ExecuteRowTasks() {
 		fmt.Println(string(out))
 	}
 	return
+}
+
+// Response provides output message
+// after execution of tasks
+func (b *BashTasks) Response() {
+	color.Green("Complete executed tasks: %d", b.CompleteTasks)
 }
 
 // executeCommand provides execution of the command
