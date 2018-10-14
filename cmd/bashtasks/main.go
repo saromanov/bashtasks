@@ -11,9 +11,10 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	bt := bashtasks.New(cfg)
 
 	bashtasks.StartMessage(cfg)
 	if len(cfg.Tasks) > 0 {
-		bashtasks.ExecuteRowTasks()
+		bt.ExecuteRowTasks()
 	}
 }
