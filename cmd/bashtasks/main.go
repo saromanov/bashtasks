@@ -14,6 +14,6 @@ func main() {
 
 	bashtasks.StartMessage(cfg)
 	if len(cfg.Tasks) > 0 {
-		bashtasks.ExecuteRowTasks(cfg.Tasks)
+		bashtasks.ExecuteRowTasks()
 	}
 }

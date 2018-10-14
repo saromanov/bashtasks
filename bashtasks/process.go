@@ -20,7 +20,8 @@ func New(cfg *Config) *BashTasks {
 
 // ExecuteRowTasks provides executing of the
 // commands step by step
-func (b *BashTasks) ExecuteRowTasks(tasks []Task) {
+func (b *BashTasks) ExecuteRowTasks() {
+	tasks := b.Config.Tasks
 	if len(tasks) == 0 {
 		return
 	}
