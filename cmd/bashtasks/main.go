@@ -21,7 +21,13 @@ func getFileName() string {
 }
 
 func main() {
-
+	name := getFileName()
+	if name != "" {
+		cfg, err := bashtasks.LoadYAMLByName(name)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
 	cfg, err := bashtasks.LoadYAML("../../configs/config.yaml")
 	if err != nil {
 		log.Fatal(err)
