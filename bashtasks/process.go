@@ -30,7 +30,6 @@ func (b *BashTasks) ExecuteRowTasks() {
 	}
 	b.NumberOfTasks = len(tasks)
 	for _, t := range tasks {
-		color.Yellow(fmt.Sprintf("Executing of the task: %s", t.Title))
 		out, err := b.executeTask(t)
 		if err != nil {
 			if t.AbortPipeline {
