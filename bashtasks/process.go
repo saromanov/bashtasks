@@ -3,6 +3,7 @@ package bashtasks
 import (
 	"fmt"
 	"os/exec"
+	"time"
 
 	"github.com/fatih/color"
 )
@@ -30,6 +31,7 @@ func (b *BashTasks) ExecuteRowTasks() {
 	}
 	b.NumberOfTasks = len(tasks)
 	for _, t := range tasks {
+		start := time.Now()
 		out, err := b.executeTask(t)
 		if err != nil {
 			if t.AbortPipeline {
@@ -37,9 +39,11 @@ func (b *BashTasks) ExecuteRowTasks() {
 			}
 			continue
 		}
+		end := time.Since(start).Seconds()
 		if root.ShowOutput {
 			fmt.Println(string(out))
 		}
+		color.Yellow(fmt.Sprintf("Task was executed on: %fs", end))
 	}
 	return
 }
