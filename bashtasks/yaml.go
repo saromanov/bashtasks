@@ -3,8 +3,12 @@ package bashtasks
 import (
 	"io/ioutil"
 
+	"github.com/saromanov/cowrow"
+
 	"gopkg.in/yaml.v2"
 )
+
+const envPath = "BASHTASKS"
 
 // Config defines struct for config
 type Config struct {
@@ -33,6 +37,17 @@ func LoadYAML(path string) (*Config, error) {
 		return nil, err
 	}
 	err = yaml.Unmarshal(fileConfig, &cfg)
+	if err != nil {
+		return nil, err
+	}
+	return cfg, nil
+}
+
+// LoadYAMLByName provides loading of the yaml file
+// from directory by the name
+func LoadYAMLByName(name string) (*Config, error) {
+	cfg := &Config{}
+	err := cowrow.LoadYAMLFile(envPath, name, &cfg)
 	if err != nil {
 		return nil, err
 	}
