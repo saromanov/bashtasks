@@ -4,7 +4,6 @@ import (
 	"io/ioutil"
 
 	"github.com/saromanov/cowrow"
-
 	"gopkg.in/yaml.v2"
 )
 
@@ -12,6 +11,7 @@ const envPath = "BASHTASKS"
 
 // Config defines struct for config
 type Config struct {
+	ShowOutput    bool   `yaml:"show_output"`
 	Tasks         []Task `yaml:"tasks"`
 	ParallelTasks []Task `yaml:"parallel_tasks"`
 }
@@ -47,7 +47,7 @@ func LoadYAML(path string) (*Config, error) {
 // from directory by the name
 func LoadYAMLByName(name string) (*Config, error) {
 	cfg := &Config{}
-	err := cowrow.LoadYAMLFile(envPath, name, &cfg)
+	err := cowrow.LoadYAMLFile(envPath, name, cfg)
 	if err != nil {
 		return nil, err
 	}
