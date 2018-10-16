@@ -30,17 +30,26 @@ func (b *BashTasks) ExecuteRowTasks() {
 	b.NumberOfTasks = len(tasks)
 	for _, t := range tasks {
 		color.Yellow(fmt.Sprintf("Executing of the task: %s", t.Title))
-		out, err := executeCommand(t.Cmd)
+		out, err := b.executeTask(t)
 		if err != nil {
 			if t.AbortPipeline {
 				return
 			}
 			continue
 		}
-		b.CompleteTasks++
 		fmt.Println(string(out))
 	}
 	return
+}
+
+func (b *BashTasks) executeTask(t Task) ([]byte, error) {
+	color.Yellow(fmt.Sprintf("Executing of the task: %s", t.Title))
+	out, err := executeCommand(t.Cmd)
+	if err != nil {
+		return nil, err
+	}
+	b.CompleteTasks++
+	return out, nil
 }
 
 // Response provides output message
