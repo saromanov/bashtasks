@@ -17,4 +17,5 @@ func main() {
 	if len(cfg.Tasks) > 0 {
 		bt.ExecuteRowTasks()
 	}
+	bt.Response()
 }
