@@ -19,6 +19,9 @@ type Task struct {
 	// AbortPipeline stops whole pipeline
 	// in the case if was occured error
 	AbortPipeline bool `yaml:"abort_pipeline"`
+
+	// Tags provides marking of the task
+	Tags []string `yaml:"tags"`
 }
 
 // LoadYAML provides loading of the yaml config
