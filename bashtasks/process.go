@@ -32,6 +32,9 @@ func (b *BashTasks) ExecuteRowTasks() {
 		color.Yellow(fmt.Sprintf("Executing of the task: %s", t.Title))
 		out, err := executeCommand(t.Cmd)
 		if err != nil {
+			if t.AbortPipeline {
+				return
+			}
 			continue
 		}
 		b.CompleteTasks++
