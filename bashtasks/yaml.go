@@ -8,7 +8,7 @@ import (
 
 // Config defines struct for config
 type Config struct {
-	Tasks []Task `yaml:"tasks"`
+	Tasks         []Task `yaml:"tasks"`
 	ParallelTasks []Task `yaml:"parallel_tasks"`
 }
 
@@ -16,6 +16,9 @@ type Config struct {
 type Task struct {
 	Title string `yaml:"title"`
 	Cmd   string `yaml:"cmd"`
+	// AbortPipeline stops whole pipeline
+	// in the case if was occured error
+	AbortPipeline bool `yaml:"abort_pipeline"`
 }
 
 // LoadYAML provides loading of the yaml config
