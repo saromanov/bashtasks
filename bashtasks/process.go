@@ -23,7 +23,8 @@ func New(cfg *Config) *BashTasks {
 // ExecuteRowTasks provides executing of the
 // commands step by step
 func (b *BashTasks) ExecuteRowTasks() {
-	tasks := b.Config.Tasks
+	root := b.Config
+	tasks := root.Tasks
 	if len(tasks) == 0 {
 		return
 	}
@@ -37,7 +38,9 @@ func (b *BashTasks) ExecuteRowTasks() {
 			}
 			continue
 		}
-		fmt.Println(string(out))
+		if root.ShowOutput {
+			fmt.Println(string(out))
+		}
 	}
 	return
 }
