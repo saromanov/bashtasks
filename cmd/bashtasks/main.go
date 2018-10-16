@@ -14,7 +14,7 @@ import (
 // It'll load file foo.yaml from the BASHTASKS env.path
 func getFileName() string {
 	args := os.Args
-	if len(args) == 0 {
+	if len(args) <= 1 {
 		return ""
 	}
 	return args[1]
@@ -22,13 +22,15 @@ func getFileName() string {
 
 func main() {
 	name := getFileName()
+	cfg := &bashtasks.Config{}
+	var err error
 	if name != "" {
-		cfg, err := bashtasks.LoadYAMLByName(name)
+		cfg, err = bashtasks.LoadYAMLByName(name)
 		if err != nil {
 			log.Fatal(err)
 		}
 	}
-	cfg, err := bashtasks.LoadYAML("../../configs/config.yaml")
+	cfg, err = bashtasks.LoadYAML("../../configs/config.yaml")
 	if err != nil {
 		log.Fatal(err)
 	}
