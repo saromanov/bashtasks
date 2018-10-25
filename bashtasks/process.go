@@ -36,6 +36,13 @@ func (b *BashTasks) ExecuteRowTasks() {
 	b.NumberOfTasks = len(tasks)
 	for _, t := range tasks {
 		start := time.Now()
+		if t.Path != "" {
+			fileName, err := downloadScript(t.Path)
+			if err != nil {
+				color.Red(fmt.Sprintf("unable to download file: %v", end))
+				continue
+			}
+		}
 		out, err := b.executeTask(t)
 		if err != nil {
 			if t.AbortPipeline {
