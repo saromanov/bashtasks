@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"path"
 	"time"
 
 	"github.com/fatih/color"
@@ -79,19 +80,18 @@ func executeCommand(cmd string) ([]byte, error) {
 }
 
 // downloadScript provides downloading of the bash script
-func downloadScript(path string) error {
-	out, err := os.Create(filepath)
+func downloadScript(url string) error {
+	client := &http.Client{}
+	r, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil
+	}
+	out, err := os.Create(path.Base(r.URL.Path))
 	if err != nil {
 		return err
 	}
 	defer out.Close()
-
-	resp, err := http.Get(url)
-	if err != nil {
-		return err
-	}
-	defer resp.Body.Close()
-
+	resp, err := client.Do(r)
 	_, err = io.Copy(out, resp.Body)
 	if err != nil {
 		return err
