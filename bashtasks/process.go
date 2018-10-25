@@ -80,21 +80,22 @@ func executeCommand(cmd string) ([]byte, error) {
 }
 
 // downloadScript provides downloading of the bash script
-func downloadScript(url string) error {
+func downloadScript(url string) (string, error) {
 	client := &http.Client{}
 	r, err := http.NewRequest("GET", url, nil)
 	if err != nil {
-		return nil
+		return "", nil
 	}
-	out, err := os.Create(path.Base(r.URL.Path))
+	fileName := path.Base(r.URL.Path)
+	out, err := os.Create(fileName)
 	if err != nil {
-		return err
+		return "", err
 	}
 	defer out.Close()
 	resp, err := client.Do(r)
 	_, err = io.Copy(out, resp.Body)
 	if err != nil {
-		return err
+		return "", err
 	}
-	return nil
+	return "", nil
 }
