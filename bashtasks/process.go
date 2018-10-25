@@ -80,6 +80,7 @@ func executeCommand(cmd string) ([]byte, error) {
 }
 
 // downloadScript provides downloading of the bash script
+// Its copy to the temp file
 func downloadScript(url string) (string, error) {
 	client := &http.Client{}
 	r, err := http.NewRequest("GET", url, nil)
