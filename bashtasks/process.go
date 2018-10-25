@@ -43,6 +43,15 @@ func (b *BashTasks) ExecuteRowTasks() {
 				continue
 			}
 		}
+		if t.ScriptPath != "" {
+			out, err := b.executeScript(t)
+			if err != nil {
+				continue
+			}
+			if root.ShowOutput {
+				fmt.Println(string(out))
+			}
+		}
 		out, err := b.executeTask(t)
 		if err != nil {
 			if t.AbortPipeline {
