@@ -2,6 +2,9 @@ package bashtasks
 
 import (
 	"fmt"
+	"io"
+	"net/http"
+	"os"
 	"os/exec"
 	"time"
 
@@ -73,4 +76,25 @@ func executeCommand(cmd string) ([]byte, error) {
 	}
 
 	return out, nil
+}
+
+// downloadScript provides downloading of the bash script
+func downloadScript(path string) error {
+	out, err := os.Create(filepath)
+	if err != nil {
+		return err
+	}
+	defer out.Close()
+
+	resp, err := http.Get(url)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	_, err = io.Copy(out, resp.Body)
+	if err != nil {
+		return err
+	}
+	return nil
 }
