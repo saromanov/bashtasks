@@ -39,7 +39,7 @@ func (b *BashTasks) ExecuteRowTasks() {
 		if t.Path != "" {
 			fileName, err := downloadScript(t.Path)
 			if err != nil {
-				color.Red(fmt.Sprintf("unable to download file: %v", end))
+				color.Red(fmt.Sprintf("unable to download file: %v", err))
 				continue
 			}
 		}
@@ -57,6 +57,11 @@ func (b *BashTasks) ExecuteRowTasks() {
 		color.Yellow(fmt.Sprintf("Task was executed on: %fs", end))
 	}
 	return
+}
+
+// executeScript provides execution of the sript
+func (b *BashTasks) executeScript(t Task) ([]byte, error) {
+	return nil, nil
 }
 
 func (b *BashTasks) executeTask(t Task) ([]byte, error) {
