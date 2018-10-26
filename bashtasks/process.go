@@ -87,7 +87,7 @@ func (b *BashTasks) executeTask(t Task) ([]byte, error) {
 // Response provides output message
 // after execution of tasks
 func (b *BashTasks) Response() {
-	color.Green("Complete executed tasks: %d", b.CompleteTasks)
+	ResponseCompleteTasks(fmt.Sprintf("Complete executed tasks: %d", b.CompleteTasks))
 }
 
 // executeCommand provides execution of the command
