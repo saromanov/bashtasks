@@ -28,9 +28,9 @@ type Task struct {
 	Tags []string `yaml:"tags"`
 
 	// Path defines url to the bash script
-	Path string `yaml`
+	Path string `yaml:"path"`
 	// SciptPath defines path to script for execution
-	ScriptPath string `yaml`
+	ScriptPath string `yaml:"script_path"`
 }
 
 // LoadYAML provides loading of the yaml config

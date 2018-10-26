@@ -117,6 +117,9 @@ func downloadScript(url string) (string, error) {
 	}
 	defer out.Close()
 	resp, err := client.Do(r)
+	if err != nil {
+		return "", err
+	}
 	_, err = io.Copy(out, resp.Body)
 	if err != nil {
 		return "", err
