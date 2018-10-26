@@ -70,7 +70,8 @@ func (b *BashTasks) ExecuteRowTasks() {
 
 // executeScript provides execution of the sript
 func (b *BashTasks) executeScript(t Task) ([]byte, error) {
-	return nil, nil
+	t.Cmd = fmt.Sprintf("sh %s", t.ScriptPath)
+	return b.executeTask(t)
 }
 
 func (b *BashTasks) executeTask(t Task) ([]byte, error) {
