@@ -11,3 +11,9 @@ func StartMessage(cfg *Config) {
 		color.Blue("You have %d parallel tasks for execute", len(cfg.ParallelTasks))
 	}
 }
+
+// ResponseCompleteTasks retruns message about
+// complete executed tasks
+func responseCompleteTasks(msg string) {
+	color.Green(msg)
+}

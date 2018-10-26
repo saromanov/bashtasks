@@ -42,6 +42,7 @@ func (b *BashTasks) ExecuteRowTasks() {
 				color.Red(fmt.Sprintf("unable to download file: %v", err))
 				continue
 			}
+			fmt.Println(fileName)
 		}
 		if t.ScriptPath != "" {
 			out, err := b.executeScript(t)
@@ -87,7 +88,7 @@ func (b *BashTasks) executeTask(t Task) ([]byte, error) {
 // Response provides output message
 // after execution of tasks
 func (b *BashTasks) Response() {
-	ResponseCompleteTasks(fmt.Sprintf("Complete executed tasks: %d", b.CompleteTasks))
+	responseCompleteTasks(fmt.Sprintf("Complete executed tasks: %d", b.CompleteTasks))
 }
 
 // executeCommand provides execution of the command
