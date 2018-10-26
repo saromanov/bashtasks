@@ -80,16 +80,27 @@ func (b *BashTasks) ExecuteRowTasks() {
 
 // executeScript provides execution of the sript
 func (b *BashTasks) executeScript(t Task) ([]byte, error) {
-	t.Cmd = fmt.Sprintf("sh ./%s", t.ScriptPath)
+	t.Cmd = fmt.Sprintf("%s", t.ScriptPath)
 	return b.executeTask(t)
 }
 
 func (b *BashTasks) executeTask(t Task) ([]byte, error) {
+	var (
+		out []byte
+		err error
+	)
+
 	color.Yellow(fmt.Sprintf("Executing of the task: %s", t.Title))
-	fmt.Println(t.Cmd)
-	out, err := executeCommand(t.Cmd)
-	if err != nil {
-		return nil, err
+	if t.Path != "" || t.ScriptPath != "" {
+		out, err = executeBashScript(t.Cmd)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		out, err = executeCommand(t.Cmd)
+		if err != nil {
+			return nil, err
+		}
 	}
 	b.CompleteTasks++
 	return out, nil
@@ -107,6 +118,17 @@ func executeCommand(cmd string) ([]byte, error) {
 	out, err := exec.Command(cmd).Output()
 	if err != nil {
 		return nil, fmt.Errorf("unable to execute command")
+	}
+
+	return out, nil
+}
+
+// executeBashScript provides executing of the bash script
+func executeBashScript(cmd string) ([]byte, error) {
+
+	out, err := exec.Command("/bin/sh", cmd).Output()
+	if err != nil {
+		return nil, fmt.Errorf("unable to execute bash script", err)
 	}
 
 	return out, nil
