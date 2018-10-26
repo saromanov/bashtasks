@@ -25,3 +25,18 @@ Execute the command
 ```
 bashtasks basic
 ```
+
+Executing of the task with downloading of bash script from remote
+```yaml
+#loading of tasks
+show_output: true
+tasks:
+  - title: whoami
+    cmd: whoami
+  
+  - title: network
+    cmd: ifconfig
+
+  - title: Get bash script
+    path: https://raw.githubusercontent.com/ruanyf/simple-bash-scripts/master/scripts/Hello.sh
+```
