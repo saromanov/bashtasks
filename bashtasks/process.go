@@ -35,23 +35,31 @@ func (b *BashTasks) ExecuteRowTasks() {
 	}
 	b.NumberOfTasks = len(tasks)
 	for _, t := range tasks {
-		start := time.Now()
+		b.runTask(t)
+	}
+	return
+}
+
+// runTask provides executing of the task logic
+// TODO: Add errors and stages of the task execution
+func (b *BashTasks) runTask(t Task) error {
+	start := time.Now()
 		if t.Path != "" {
 			fileName, err := downloadScript(t.Path)
 			if err != nil {
 				color.Red(fmt.Sprintf("unable to download file: %v", err))
-				continue
+				return err
 			}
 			t.ScriptPath = fileName
 			out, err := b.executeScript(t)
 			if err != nil {
 				fmt.Println(err.Error())
-				continue
+				return err
 			}
 			if root.ShowOutput {
 				fmt.Println(string(out))
 			}
-			continue
+			return nil
 		}
 		if t.ScriptPath != "" {
 			out, err := b.executeScript(t)
@@ -74,8 +82,6 @@ func (b *BashTasks) ExecuteRowTasks() {
 			fmt.Println(string(out))
 		}
 		color.Yellow(fmt.Sprintf("Task was executed on: %fs", end))
-	}
-	return
 }
 
 // executeScript provides execution of the sript
