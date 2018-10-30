@@ -100,6 +100,26 @@ func (b *BashTasks) runTask(root *Config, t Task) error {
 	return nil
 }
 
+// GetRule returns rule of current task contains
+// tag attached to the rule
+func (b *BashTasks) GetRule(t Task) (*Rule, bool) {
+	if len(t.Tags) == 0 {
+		return nil, false
+	}
+	if len(b.Config.Rules) == 0 {
+		return nil, false
+	}
+	tags := t.Tags
+	for _, tag := range tags {
+		for _, r := range b.Config.Rules {
+			if tag == r.Tag {
+				return &r, true
+			}
+		}
+	}
+	return nil, false
+}
+
 // executeScript provides execution of the sript
 func (b *BashTasks) executeScript(t Task) ([]byte, error) {
 	t.Cmd = fmt.Sprintf("%s", t.ScriptPath)

@@ -14,6 +14,7 @@ type Config struct {
 	ShowOutput    bool   `yaml:"show_output"`
 	Tasks         []Task `yaml:"tasks"`
 	ParallelTasks []Task `yaml:"parallel_tasks"`
+	Rules         []Rule `yaml:"rules"`
 }
 
 // Task is definition for task
