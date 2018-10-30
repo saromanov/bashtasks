@@ -56,9 +56,11 @@ func (b *BashTasks) runTask(root *Config, t Task) error {
 			fmt.Println(err.Error())
 			return err
 		}
+		end := time.Since(start).Seconds()
 		if root.ShowOutput {
 			fmt.Println(string(out))
 		}
+		color.Yellow(fmt.Sprintf("Task was executed on: %fs", end))
 		return nil
 	}
 	if t.ScriptPath != "" {
