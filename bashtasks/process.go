@@ -26,10 +26,11 @@ func New(cfg *Config) *BashTasks {
 func (b *BashTasks) Run() {
 	root := b.Config
 	tasks := root.Tasks
+	parallelTasks := root.ParallelTasks
 	if len(tasks) == 0 {
 		return
 	}
-	b.NumberOfTasks = len(tasks)
+	b.NumberOfTasks = len(tasks) + len(parallelTasks)
 	for _, t := range tasks {
 		b.runTask(root, t)
 	}
