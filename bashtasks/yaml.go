@@ -38,7 +38,8 @@ type Task struct {
 type Rule struct {
 	Tag        string `yaml:"tag"`
 	ShowOutput bool   `yaml:"show_output"`
-	ShowTime   bool   `yaml:"show_output"`
+	ShowTime   bool   `yaml:"show_time"`
+	Retry      uint   `yaml:"retry"`
 }
 
 // LoadYAML provides loading of the yaml config
