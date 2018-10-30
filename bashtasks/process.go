@@ -2,14 +2,11 @@ package bashtasks
 
 import (
 	"fmt"
-	"io"
-	"net/http"
-	"os"
 	"os/exec"
-	"path"
 	"time"
 
 	"github.com/fatih/color"
+	"github.com/saromanov/bashtasks/util"
 )
 
 // BashTasks defines response
@@ -59,7 +56,7 @@ func (b *BashTasks) ExecuteRowTasks() {
 func (b *BashTasks) runTask(root *Config, t Task) error {
 	start := time.Now()
 	if t.Path != "" {
-		fileName, err := downloadScript(t.Path)
+		fileName, err := util.DownloadFile(t.Path)
 		if err != nil {
 			color.Red(fmt.Sprintf("unable to download file: %v", err))
 			return err
@@ -155,29 +152,4 @@ func executeBashScript(cmd string) ([]byte, error) {
 	}
 
 	return out, nil
-}
-
-// downloadScript provides downloading of the bash script
-// Its copy to the temp file
-func downloadScript(url string) (string, error) {
-	client := &http.Client{}
-	r, err := http.NewRequest("GET", url, nil)
-	if err != nil {
-		return "", nil
-	}
-	fileName := path.Base(r.URL.Path)
-	out, err := os.Create(fileName)
-	if err != nil {
-		return "", err
-	}
-	defer out.Close()
-	resp, err := client.Do(r)
-	if err != nil {
-		return "", err
-	}
-	_, err = io.Copy(out, resp.Body)
-	if err != nil {
-		return "", err
-	}
-	return fileName, nil
 }
