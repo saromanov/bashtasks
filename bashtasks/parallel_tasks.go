@@ -4,9 +4,9 @@ import (
 	"sync"
 )
 
-// ExecuteParallelTasks runs executing of bash tasks
+// executeParallelTasks runs executing of bash tasks
 // in parallel i.e with goroutines
-func ExecuteParallelTasks(tasks []Task) error {
+func (b *BashTasks) executeParallelTasks(tasks []Task) error {
 	if len(tasks) == 0 {
 		return nil
 	}
