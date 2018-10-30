@@ -61,6 +61,7 @@ func (b *BashTasks) runTask(root *Config, t Task) error {
 			color.Red(fmt.Sprintf("unable to download file: %v", err))
 			return err
 		}
+		defer util.RemoveFile(fileName)
 		t.ScriptPath = fileName
 		out, err := b.executeScript(t)
 		if err != nil {
