@@ -35,53 +35,54 @@ func (b *BashTasks) ExecuteRowTasks() {
 	}
 	b.NumberOfTasks = len(tasks)
 	for _, t := range tasks {
-		b.runTask(t)
+		b.runTask(root, t)
 	}
 	return
 }
 
 // runTask provides executing of the task logic
 // TODO: Add errors and stages of the task execution
-func (b *BashTasks) runTask(t Task) error {
+func (b *BashTasks) runTask(root *Config, t Task) error {
 	start := time.Now()
-		if t.Path != "" {
-			fileName, err := downloadScript(t.Path)
-			if err != nil {
-				color.Red(fmt.Sprintf("unable to download file: %v", err))
-				return err
-			}
-			t.ScriptPath = fileName
-			out, err := b.executeScript(t)
-			if err != nil {
-				fmt.Println(err.Error())
-				return err
-			}
-			if root.ShowOutput {
-				fmt.Println(string(out))
-			}
-			return nil
-		}
-		if t.ScriptPath != "" {
-			out, err := b.executeScript(t)
-			if err != nil {
-				continue
-			}
-			if root.ShowOutput {
-				fmt.Println(string(out))
-			}
-		}
-		out, err := b.executeTask(t)
+	if t.Path != "" {
+		fileName, err := downloadScript(t.Path)
 		if err != nil {
-			if t.AbortPipeline {
-				return
-			}
-			continue
+			color.Red(fmt.Sprintf("unable to download file: %v", err))
+			return err
 		}
-		end := time.Since(start).Seconds()
+		t.ScriptPath = fileName
+		out, err := b.executeScript(t)
+		if err != nil {
+			fmt.Println(err.Error())
+			return err
+		}
 		if root.ShowOutput {
 			fmt.Println(string(out))
 		}
-		color.Yellow(fmt.Sprintf("Task was executed on: %fs", end))
+		return nil
+	}
+	if t.ScriptPath != "" {
+		out, err := b.executeScript(t)
+		if err != nil {
+			return err
+		}
+		if root.ShowOutput {
+			fmt.Println(string(out))
+		}
+	}
+	out, err := b.executeTask(t)
+	if err != nil {
+		if t.AbortPipeline {
+			return nil
+		}
+		return err
+	}
+	end := time.Since(start).Seconds()
+	if root.ShowOutput {
+		fmt.Println(string(out))
+	}
+	color.Yellow(fmt.Sprintf("Task was executed on: %fs", end))
+	return nil
 }
 
 // executeScript provides execution of the sript
