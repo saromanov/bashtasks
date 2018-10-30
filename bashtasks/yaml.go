@@ -33,6 +33,14 @@ type Task struct {
 	ScriptPath string `yaml:"script_path"`
 }
 
+// Rule defines specific rules for the tasks
+// on tag
+type Rule struct {
+	Tag        string `yaml:"tag"`
+	ShowOutput bool   `yaml:"show_output"`
+	ShowTime   bool   `yaml:"show_output"`
+}
+
 // LoadYAML provides loading of the yaml config
 func LoadYAML(path string) (*Config, error) {
 
