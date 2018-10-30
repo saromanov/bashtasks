@@ -25,6 +25,20 @@ func New(cfg *Config) *BashTasks {
 	return &BashTasks{Config: cfg}
 }
 
+// Run provides entry point at bashtasks
+func (b *BashTasks) Run() {
+	root := b.Config
+	tasks := root.Tasks
+	if len(tasks) == 0 {
+		return
+	}
+	b.NumberOfTasks = len(tasks)
+	for _, t := range tasks {
+		b.runTask(root, t)
+	}
+	return
+}
+
 // ExecuteRowTasks provides executing of the
 // commands step by step
 func (b *BashTasks) ExecuteRowTasks() {

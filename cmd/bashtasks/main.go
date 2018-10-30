@@ -39,7 +39,7 @@ func main() {
 
 	bashtasks.StartMessage(cfg)
 	if len(cfg.Tasks) > 0 {
-		bt.ExecuteRowTasks()
+		bt.Run()
 	}
 	bt.Response()
 }
