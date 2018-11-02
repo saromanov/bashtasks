@@ -15,11 +15,12 @@ func (b *BashTasks) executeParallelTasks(tasks []Task) error {
 	var wg sync.WaitGroup
 	wg.Add(len(tasks))
 	fmt.Println(len(tasks))
+	root := b.Config
 	for _, t := range tasks {
-		go func() {
-			executeCommand(t.Cmd)
+		go func(ta Task) {
+			b.runTask(root, ta)
 			wg.Done()
-		}()
+		}(t)
 	}
 	wg.Wait()
 	return nil

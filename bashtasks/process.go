@@ -32,6 +32,7 @@ func (b *BashTasks) Run() {
 		return
 	}
 	b.NumberOfTasks = len(tasks) + len(parallelTasks)
+	b.executeParallelTasks(parallelTasks)
 	for _, t := range tasks {
 		b.runTask(root, t)
 	}
