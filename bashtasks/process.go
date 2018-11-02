@@ -28,7 +28,7 @@ func (b *BashTasks) Run() {
 	tasks := root.Tasks
 	parallelTasks := root.ParallelTasks
 	startMessage(root)
-	if len(tasks) == 0 {
+	if len(tasks) == 0 && len(parallelTasks) == 0 {
 		return
 	}
 	b.NumberOfTasks = len(tasks) + len(parallelTasks)
