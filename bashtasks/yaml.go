@@ -32,6 +32,9 @@ type Task struct {
 	Path string `yaml:"path"`
 	// SciptPath defines path to script for execution
 	ScriptPath string `yaml:"script_path"`
+	// ExecutionLimit defines limit of time for task execution
+	// For example: it might be "3s", "1m", etc
+	ExecutionLimit string `yaml:"execution_limit"`
 }
 
 // Rule defines specific rules for the tasks
