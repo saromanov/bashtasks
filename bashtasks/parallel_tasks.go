@@ -3,6 +3,7 @@ package bashtasks
 import (
 	"fmt"
 	"sync"
+	"time"
 )
 
 // executeParallelTasks runs executing of bash tasks
@@ -15,6 +16,7 @@ func (b *BashTasks) executeParallelTasks(tasks []Task) error {
 	var wg sync.WaitGroup
 	wg.Add(len(tasks))
 	fmt.Println(len(tasks))
+	timeChan := time.NewTimer(time.Second).C
 	root := b.Config
 	for _, t := range tasks {
 		go func(ta Task) {
@@ -22,6 +24,15 @@ func (b *BashTasks) executeParallelTasks(tasks []Task) error {
 			wg.Done()
 		}(t)
 	}
+
+	go func() {
+		for {
+			select {
+			case <-timeChan:
+				fmt.Println("Timer expired")
+			}
+		}
+	}()
 	wg.Wait()
 	return nil
 }
