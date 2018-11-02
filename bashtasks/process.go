@@ -27,6 +27,7 @@ func (b *BashTasks) Run() {
 	root := b.Config
 	tasks := root.Tasks
 	parallelTasks := root.ParallelTasks
+	startMessage(root)
 	if len(tasks) == 0 {
 		return
 	}
