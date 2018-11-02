@@ -36,8 +36,6 @@ func main() {
 		}
 	}
 	bt := bashtasks.New(cfg)
-	if len(cfg.Tasks) > 0 {
-		bt.Run()
-	}
+	bt.Run()
 	bt.Response()
 }
