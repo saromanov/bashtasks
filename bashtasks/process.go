@@ -15,6 +15,7 @@ type BashTasks struct {
 	NumberOfTasks int
 	CompleteTasks int
 	Config        *Config
+	Rules         map[string]Rule
 }
 
 // New provides init of the bash tasks
@@ -183,4 +184,17 @@ func showTags(t Task) {
 	for _, t := range t.Tags {
 		fmt.Println(t)
 	}
+}
+
+// rulesToMap converts rules into the map representation
+// at the init step
+func rulesToMap(c *Config) map[string]Rule {
+	if len(c.Rules) == 0 {
+		return nil
+	}
+	result := make(map[string]Rule, len(c.Rules))
+	for _, r := range c.Rules {
+		result[r.Tag] = r
+	}
+	return result
 }
