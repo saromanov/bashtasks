@@ -20,7 +20,10 @@ type BashTasks struct {
 
 // New provides init of the bash tasks
 func New(cfg *Config) *BashTasks {
-	return &BashTasks{Config: cfg}
+	return &BashTasks{
+		Config: cfg,
+		Rules:  rulesToMap(cfg),
+	}
 }
 
 // Run provides entry point at bashtasks
