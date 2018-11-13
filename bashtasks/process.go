@@ -92,6 +92,7 @@ func (b *BashTasks) runTask(root *Config, t Task) error {
 	end := time.Since(start).Seconds()
 	if root.ShowOutput {
 		fmt.Println(string(out))
+		showTags(t)
 	}
 	color.Yellow(fmt.Sprintf("Task was executed on: %fs", end))
 	return nil
@@ -171,4 +172,15 @@ func executeBashScript(cmd string) ([]byte, error) {
 	}
 
 	return out, nil
+}
+
+// showTags returns output of the task tags
+func showTags(t Task) {
+	if len(t.Tags) == 0 {
+		return
+	}
+	fmt.Println("Tags: ")
+	for _, t := range t.Tags {
+		fmt.Println(t)
+	}
 }
