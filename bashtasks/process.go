@@ -85,7 +85,7 @@ func (b *BashTasks) runTask(root *Config, t Task) error {
 	out, err := b.executeTask(t)
 	if err != nil {
 		if t.AbortPipeline {
-			return nil
+			return fmt.Errorf("pipleline was aborted: %v", err)
 		}
 		return err
 	}
